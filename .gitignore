@@ -1,0 +1,229 @@
+# ===========================
+# DEPENDENCIES & PACKAGE MANAGERS
+# ===========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+.yarn/
+.npm/
+
+# ===========================
+# ENVIRONMENT VARIABLES & CONFIG
+# ===========================
+.env
+.env.*
+!.env.example
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+config.json
+config.local.json
+
+# OAuth & Auth Config
+oauth-config.json
+jwt-private.key
+jwt-public.key
+google-credentials.json
+facebook-credentials.json
+github-credentials.json
+
+# ===========================
+# FRONTEND BUILD & CACHE
+# ===========================
+# React/Next.js
+.next/
+out/
+build/
+dist/
+.vercel/
+
+# Vite
+dist-ssr/
+*.local
+
+# Vue.js
+dist/
+.nuxt/
+.output/
+
+# Angular
+/dist/
+/tmp/
+/out-tsc/
+/bazel-out/
+
+# Webpack
+.webpack/
+
+# Parcel
+.cache/
+.parcel-cache/
+
+# Rollup
+.rollup.cache/
+
+# Cache directories
+.cache/
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+.eslintcache
+.stylelintcache
+.tsbuildinfo
+
+# ===========================
+# BACKEND SPECIFIC
+# ===========================
+# Uploads & User Content
+uploads/
+public/uploads/
+assets/uploads/
+static/uploads/
+media/
+tmp/
+temp/
+
+# Database files
+*.sqlite
+*.sqlite3
+*.db
+database.json
+mongo-data/
+redis-data/
+
+# Session storage
+sessions/
+.sessions/
+
+# Email templates cache
+.email-cache/
+
+# ===========================
+# LOGS & MONITORING
+# ===========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pids/
+*.pid
+*.seed
+*.pid.lock
+.pm2/
+
+# ===========================
+# TESTING & COVERAGE
+# ===========================
+coverage/
+*.lcov
+.nyc_output/
+test-results/
+.jest/
+.coverage/
+
+# ===========================
+# DEVELOPMENT TOOLS
+# ===========================
+# IDE and Editor files
+.vscode/
+!.vscode/settings.json.example
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+.sublime-project
+.sublime-workspace
+
+# ===========================
+# OS GENERATED FILES
+# ===========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ===========================
+# SECURITY & CERTIFICATES
+# ===========================
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+certificates/
+ssl/
+
+# ===========================
+# RUNTIME & BUILD ARTIFACTS
+# ===========================
+lib-cov/
+.grunt/
+bower_components/
+.lock-wscript
+build/Release/
+jspm_packages/
+
+# ===========================
+# PACKAGE MANAGERS LOCK FILES
+# (Uncomment if you want to ignore lock files)
+# ===========================
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# ===========================
+# DOCUMENTATION BUILD
+# ===========================
+docs/build/
+.docusaurus/
+.vuepress/dist/
+
+# ===========================
+# DEPLOYMENT & CI/CD
+# ===========================
+.deploy/
+.github/workflows/secrets/
+.docker/
+docker-compose.override.yml
+
+# ===========================
+# BACKUP & TEMPORARY FILES
+# ===========================
+*.backup
+*.bak
+*.old
+*.tmp
+*.temp
+*.orig
+*~
+
+# ===========================
+# MISCELLANEOUS
+# ===========================
+.yarn-integrity
+.tsbuildinfo
+.eslintcache
+.stylelintcache
+.storybook-out/
+storybook-static/
+
+# Email testing
+test-email.js
+email-preview.html
+
+# API documentation
+api-docs/generated/
