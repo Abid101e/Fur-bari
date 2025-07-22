@@ -42,9 +42,7 @@ const sendTokenResponse = (user, statusCode, res, message = 'Success') => {
     });
 };
 
-// @desc    Register user
-// @route   POST /api/users/register
-// @access  Public
+
 export const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -62,6 +60,7 @@ export const registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password,
+    provider: 'local'
   });
 
   // Generate email verification token
@@ -94,9 +93,6 @@ export const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Verify email
-// @route   GET /api/users/verify-email/:token
-// @access  Public
 export const verifyEmail = asyncHandler(async (req, res) => {
   const { token } = req.params;
 
@@ -124,9 +120,7 @@ export const verifyEmail = asyncHandler(async (req, res) => {
   sendTokenResponse(user, 200, res, 'Email verified successfully');
 });
 
-// @desc    Resend verification email
-// @route   POST /api/users/resend-verification
-// @access  Public
+
 export const resendVerificationEmail = asyncHandler(async (req, res) => {
   const { email } = req.body;
 
@@ -169,9 +163,7 @@ export const resendVerificationEmail = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Login user
-// @route   POST /api/users/login
-// @access  Public
+
 export const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -190,6 +182,14 @@ export const loginUser = asyncHandler(async (req, res) => {
     return res.status(423).json({
       success: false,
       message: 'Account is temporarily locked due to too many failed login attempts',
+    });
+  }
+
+  // Check if user is OAuth user trying to login with password
+  if (user.provider === 'google' && !user.password) {
+    return res.status(400).json({
+      success: false,
+      message: 'Please use Google login for this account'
     });
   }
 
@@ -225,9 +225,7 @@ export const loginUser = asyncHandler(async (req, res) => {
   sendTokenResponse(user, 200, res, 'Logged in successfully');
 });
 
-// @desc    Logout user
-// @route   POST /api/users/logout
-// @access  Private
+
 export const logoutUser = asyncHandler(async (req, res) => {
   res.cookie('token', 'none', {
     expires: new Date(Date.now() + 10 * 1000),
@@ -240,9 +238,8 @@ export const logoutUser = asyncHandler(async (req, res) => {
   });
 });
 
-// @desc    Get current user
-// @route   GET /api/users/me
-// @access  Private
+//     Get current user
+
 export const getMe = asyncHandler(async (req, res) => {
   const user = req.user;
 
@@ -263,9 +260,8 @@ export const getMe = asyncHandler(async (req, res) => {
   });
 });
 
-// @desc    Update user profile
-// @route   PUT /api/users/profile
-// @access  Private
+//    Update user profile
+
 export const updateProfile = asyncHandler(async (req, res) => {
   const fieldsToUpdate = {};
   const allowedFields = ['name', 'bio', 'location', 'avatar'];
@@ -302,9 +298,8 @@ export const updateProfile = asyncHandler(async (req, res) => {
   });
 });
 
-// @desc    Forgot password
-// @route   POST /api/users/forgot-password
-// @access  Public
+//     Forgot password
+
 export const forgotPassword = asyncHandler(async (req, res) => {
   const { email } = req.body;
 
@@ -340,9 +335,8 @@ export const forgotPassword = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Reset password
-// @route   PUT /api/users/reset-password/:token
-// @access  Public
+//    Reset password
+
 export const resetPassword = asyncHandler(async (req, res) => {
   const { token } = req.params;
   const { password } = req.body;
@@ -371,9 +365,8 @@ export const resetPassword = asyncHandler(async (req, res) => {
   sendTokenResponse(user, 200, res, 'Password reset successfully');
 });
 
-// @desc    Change password
-// @route   PUT /api/users/change-password
-// @access  Private
+//    Change password
+
 export const changePassword = asyncHandler(async (req, res) => {
   const { currentPassword, newPassword } = req.body;
 

@@ -21,9 +21,22 @@ const userSchema = new mongoose.Schema({
   },
   password: { 
     type: String, 
-    required: [true, 'Password is required'],
+    required: function() {
+      // Password is only required if not using OAuth
+      return !this.googleId;
+    },
     minlength: [8, 'Password must be at least 8 characters'],
     select: false // Don't include password in queries by default
+  },
+  // OAuth fields
+  googleId: {
+    type: String,
+    sparse: true // Allows multiple null values
+  },
+  provider: {
+    type: String,
+    enum: ['local', 'google'],
+    default: 'local'
   },
   avatar: { 
     type: String,
@@ -41,7 +54,10 @@ const userSchema = new mongoose.Schema({
   },
   isEmailVerified: {
     type: Boolean,
-    default: false
+    default: function() {
+      // Auto-verify email for OAuth users
+      return this.provider === 'google';
+    }
   },
   emailVerificationToken: String,
   emailVerificationExpires: Date,
@@ -62,6 +78,10 @@ const userSchema = new mongoose.Schema({
 // Index for email verification token
 userSchema.index({ emailVerificationToken: 1 });
 userSchema.index({ passwordResetToken: 1 });
+userSchema.index({ googleId: 1 }, { unique: true, sparse: true });
+userSchema.index({ email: 1, provider: 1 }, { unique: true });
+userSchema.index({ googleId: 1 });
+userSchema.index({ email: 1, provider: 1 });
 
 // Virtual for account lock status
 userSchema.virtual('isLocked').get(function() {
@@ -103,7 +123,8 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
 
 // Hash password before saving
 userSchema.pre('save', async function(next) {
-  if (!this.isModified('password')) return next();
+  // Only hash password if it exists and is modified
+  if (!this.password || !this.isModified('password')) return next();
   
   this.password = await bcrypt.hash(this.password, 12);
   next();
