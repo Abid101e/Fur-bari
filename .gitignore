@@ -47,6 +47,13 @@ dist/
 # Vite
 dist-ssr/
 *.local
+# ===========================
+# BACKEND TEST SCRIPTS
+# ===========================
+backend/test-api.js
+backend/test-api-simple.js
+backend/test-simple.cjs
+backend/test-simple.js
 
 # Vue.js
 dist/

@@ -3,7 +3,6 @@ import { JWTService } from '../utils/jwt.js';
 import { User, IUser } from '../modules/users/user.model.js';
 import { CustomError } from './error.js';
 
-// Extend Request interface to include user
 declare global {
   namespace Express {
     interface Request {
@@ -20,7 +19,6 @@ export const authenticate = async (
   try {
     let token: string | undefined;
 
-    // Get token from Authorization header
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
       token = req.headers.authorization.split(' ')[1];
     }
@@ -29,10 +27,8 @@ export const authenticate = async (
       throw new CustomError('You are not logged in! Please log in to get access.', 401);
     }
 
-    // Verify token
     const decoded = JWTService.verifyAccessToken(token);
 
-    // Check if user still exists
     const currentUser = await User.findById(decoded.userId);
     
     if (!currentUser) {
@@ -43,7 +39,6 @@ export const authenticate = async (
       throw new CustomError('Your account has been deactivated. Please contact support.', 401);
     }
 
-    // Attach user to request object
     req.user = currentUser;
     next();
   } catch (error) {
@@ -77,24 +72,20 @@ export const optionalAuth = async (
   try {
     let token: string | undefined;
 
-    // Get token from Authorization header
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
       token = req.headers.authorization.split(' ')[1];
     }
 
     if (token) {
       try {
-        // Verify token
         const decoded = JWTService.verifyAccessToken(token);
 
-        // Check if user still exists
         const currentUser = await User.findById(decoded.userId);
         
         if (currentUser && currentUser.isActive) {
           req.user = currentUser;
         }
       } catch (error) {
-        // Token is invalid, but we continue without user
         console.warn('Optional auth: Invalid token provided');
       }
     }

@@ -1,5 +1,35 @@
 // Test script to verify API endpoints
-const BASE_URL = "http://localhost:5000/api/v1";
+import http from "http";
+
+const BASE_URL = "http://localhost:5000";
+
+async function makeRequest(path) {
+  return new Promise((resolve, reject) => {
+    const req = http.get(`${BASE_URL}${path}`, (res) => {
+      let data = "";
+      res.on("data", (chunk) => (data += chunk));
+      res.on("end", () => {
+        try {
+          resolve({
+            status: res.statusCode,
+            data: JSON.parse(data),
+          });
+        } catch (e) {
+          resolve({
+            status: res.statusCode,
+            data: data,
+          });
+        }
+      });
+    });
+
+    req.on("error", reject);
+    req.setTimeout(5000, () => {
+      req.destroy();
+      reject(new Error("Request timeout"));
+    });
+  });
+}
 
 async function testAPI() {
   try {
@@ -7,7 +37,7 @@ async function testAPI() {
 
     // Test health endpoint
     console.log("1. Testing health endpoint...");
-    const healthResponse = await fetch(`${BASE_URL}/health`);
+    const healthResponse = await makeRequest("/health");
     const healthData = await healthResponse.json();
     console.log("✅ Health:", healthData);
 
