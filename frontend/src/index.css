@@ -1,11 +1,20 @@
+/* === FONTS === */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap");
+
 /* === GLOBAL RESET & BASE === */
+:root {
+  --font-heading: "Poppins", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
   font-size: 16px;
   background-color: #f9f9f9;
   color: #222;
@@ -25,8 +34,10 @@ h3,
 h4,
 h5,
 h6 {
+  font-family: var(--font-heading);
   font-weight: 600;
   margin-bottom: 1rem;
+  letter-spacing: -0.025em;
 }
 .container {
   max-width: 1200px;

@@ -51,17 +51,6 @@ function SignUpPage() {
         </div>
         <div className="sign-in-right">
           <div className="sign-in-form-container">
-            <div className="logo-container">
-              <img
-                src={logo}
-                alt="Fur-bari logo"
-                className="logo"
-                onError={(e) => {
-                  console.error("Logo failed to load");
-                  e.target.style.display = "none";
-                }}
-              />
-            </div>
             <h1>Create Account</h1>
             <p className="subtitle">
               Join Fur-bari and connect with pet lovers

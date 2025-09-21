@@ -30,7 +30,11 @@
   font-size: 2.5rem;
   font-weight: 900;
   vertical-align: middle;
-  background: linear-gradient(90deg, #6fcf3d 0%, #14532d 100%);
+  background: linear-gradient(
+    90deg,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -55,9 +59,13 @@
 }
 
 .theme-green {
-  color: #14532d;
+  color: var(--gradient-middle);
   font-weight: 700;
-  background: linear-gradient(90deg, #6fcf3d 0%, #14532d 100%);
+  background: linear-gradient(
+    90deg,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -67,7 +75,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 32px;
+  margin-top: 150px;
   width: 100%;
   box-sizing: border-box;
 }
