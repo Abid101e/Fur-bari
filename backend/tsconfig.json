@@ -29,7 +29,8 @@
     "exactOptionalPropertyTypes": false,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": false,
-    "noUncheckedIndexedAccess": false
+    "noUncheckedIndexedAccess": false,
+    "ignoreDeprecations": "6.0"
   },
   "include": [
     "src/**/*"
